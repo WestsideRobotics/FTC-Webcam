@@ -6,9 +6,9 @@ if supported.  It's a companion to the FTC wiki tutorial on Webcam Controls.
 Add your own Vuforia key, where shown below.
 
 Some tested webcams:
+Logitech C920 responds to all pan/tilt/zoom (PTZ) methods
 Microsoft LifeCam VX-5000 does support PTZ, with 10 positions each.
 Logitech C270 (old firmware) does not support PTZ.
-Logitech C920
 
 Questions, comments and corrections to westsiderobotics@verizon.net
 
@@ -37,7 +37,8 @@ public class W_WebcamControls_PTZ_v03 extends LinearOpMode {
 
     private static final String VUFORIA_KEY =
             // "  INSERT YOUR VUFORIA KEY HERE   ";
- 
+            "AY8CNyf/////AAABmacTilnRckNipYdjO0lQTT6LIXxm2Y2jY7UsLAx+RIhtFqQuYjalD/A2ursWB0/PDX6m32jzxfrEEBkCUt/9M4yAJ5CHCpC/nf//QGGEgPGk6KMnnFuUR0BZMfGqVu9pHp8zurEXQDQ1nEuvhiU9TClgRIh4ZFhp0sF1G/G7RgemQY+t4kfeTQC//vjHoPpJu5l/tfJZrUm3E01GdcpKlgfs4Rt6QBwHmq2PQlnMGB70PlA2lw6KIX96Ngt9oUOTzen9hClsGeQkytxawnu3AXGV2Adkc1BAhhqFlphvMGGHHQ2SodTcFsvXfl1+A0VeRtZpL//0gDf8arizf+bIwyXo6eh6jcukQy8mkDUG461U";
+
     // Class Members
     private VuforiaLocalizer vuforia    = null;
     private WebcamName webcamName       = null;
@@ -65,6 +66,7 @@ public class W_WebcamControls_PTZ_v03 extends LinearOpMode {
     int tiltIncrement = 7200;
     int zoomIncrement = 1;
     // pan/tilt increment 7200 is for Microsoft LifeCam VX-5000
+    // can use smaller increment for Logitech C920
     
     boolean useLimits = true;       // use webcam-provided limits
 
@@ -134,10 +136,10 @@ public class W_WebcamControls_PTZ_v03 extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up) {
-                curTilt -= tiltIncrement;
-            }  else if (gamepad1.dpad_down) {
                 curTilt += tiltIncrement;
-            }
+            }  else if (gamepad1.dpad_down) {
+                curTilt -= tiltIncrement;
+            }  //reverse tilt direction for Microsoft LifeCam VX-5000
             
             if (gamepad1.y) {
                 curZoom += zoomIncrement;
