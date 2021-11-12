@@ -3,14 +3,16 @@
 This example OpMode allows direct gamepad control of webcam virtual pan/tilt/zoom,
 if supported.  It's a companion to the FTC wiki tutorial on Webcam Controls.
 
-Had trouble finding an FTC webcam that natively supports the FTC PTZ controls.
-This OpMode takes extra steps to determine whether a webcam actually does or
-does not support PTZ.  None were found so far.
-
 Add your own Vuforia key, where shown below.
+
+Some tested webcams:
+Microsoft LifeCam VX-5000 does support PTZ, with 10 positions each.
+Logitech C270 (old firmware) does not support PTZ.
+Logitech C920
 
 Questions, comments and corrections to westsiderobotics@verizon.net
 
+from v03 11/11/21
  */
 
 package org.firstinspires.ftc.teamcode;
@@ -29,13 +31,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry.DisplayFormat;
 
 
-@TeleOp(name="Webcam Controls - PTZ v02", group ="Webcam Controls")
+@TeleOp(name="Webcam Controls - PTZ v03", group ="Webcam Controls")
 
-public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
+public class W_WebcamControls_PTZ_v03 extends LinearOpMode {
 
     private static final String VUFORIA_KEY =
-            "  INSERT YOUR VUFORIA KEY HERE   ";
-
+            // "  INSERT YOUR VUFORIA KEY HERE   ";
+ 
     // Class Members
     private VuforiaLocalizer vuforia    = null;
     private WebcamName webcamName       = null;
@@ -50,7 +52,8 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
     int maxPan;
     int maxTilt;
 
-    PtzControl.PanTiltHolder curPanTilt;    // declare Holder for current
+    // declare Holder for current; must instantiate to set values
+    PtzControl.PanTiltHolder curPanTilt = new PtzControl.PanTiltHolder();  
     int curPan;
     int curTilt;
 
@@ -58,17 +61,13 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
     int maxZoom;
     int curZoom;
     
-    int panIncrement = 1;           // for manual gamepad control
-    int tiltIncrement = 1;
+    int panIncrement = 7200;        // for manual gamepad control
+    int tiltIncrement = 7200;
     int zoomIncrement = 1;
+    // pan/tilt increment 7200 is for Microsoft LifeCam VX-5000
+    
+    boolean useLimits = true;       // use webcam-provided limits
 
-    boolean isPanSupported;         // does this webcam support virtual Pan?
-    boolean isTiltSupported;
-    boolean isZoomSupported;
-
-    boolean isPanRangeProvided;     // does this webcam support min & max Pan?
-    boolean isTiltRangeProvided;
-    boolean isZoomRangeProvided;
 
     @Override public void runOpMode() {
         
@@ -124,10 +123,7 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
 
         minZoom = myPtzControl.getMinZoom();
         maxZoom = myPtzControl.getMaxZoom();
-    
-        // check if this webcam supports virtual pan, tilt and/or zoom
-        checkPtzSupport();
-        
+
         while (opModeIsActive()) {
 
             // manually adjust the webcam PTZ variables
@@ -138,9 +134,9 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up) {
-                curTilt += tiltIncrement;
-            }  else if (gamepad1.dpad_down) {
                 curTilt -= tiltIncrement;
+            }  else if (gamepad1.dpad_down) {
+                curTilt += tiltIncrement;
             }
             
             if (gamepad1.y) {
@@ -150,7 +146,17 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
             }
 
             // ensure inputs are within webcam limits, if provided
-            checkPtzLimits();
+            if (useLimits) {
+                curPan = Math.max(curPan, minPan);
+                curPan = Math.min(curPan, maxPan);
+
+                curTilt = Math.max(curTilt, minTilt);
+                curTilt = Math.min(curTilt, maxTilt);
+
+                curZoom = Math.max(curZoom, minZoom);
+                curZoom = Math.min(curZoom, maxZoom);
+            }
+
             
             // update the webcam's settings
             curPanTilt.pan = curPan;
@@ -162,16 +168,18 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
             telemetry.addLine("\nPAN: Dpad up/dn; TILT: Dpad L/R; ZOOM: Y/A");
 
             telemetry.addLine("\nWebcam properties (zero may mean not supported)");
-            telemetry.addData("Pan", "Min: %.1s, Max: %.1s, Actual: %.1s",
+
+            telemetry.addData("Pan", "Min: %d, Max: %d, Actual: %d",
                 minPan, maxPan, myPtzControl.getPanTilt().pan);
             telemetry.addData("Programmed Pan", curPan);
 
-            telemetry.addData("\nTilt", "Min: %.1s, Max: %.1s, Actual: %.1s",
+            telemetry.addData("\nTilt", "Min: %d, Max: %d, Actual: %d",
                 minTilt, maxTilt, myPtzControl.getPanTilt().tilt);
+            
             telemetry.addData("Programmed Tilt", curTilt);
                 
-            telemetry.addData("\nZoom", "Min: %.1s, Max: %.1s, Actual: %.1s",
-                    minZoom, maxZoom, myPtzControl.getZoom());
+            telemetry.addData("\nZoom", "Min: %d, Max: %d, Actual: %d",
+                minZoom, maxZoom, myPtzControl.getZoom());      
             telemetry.addData("Programmed Zoom", curZoom);
 
             telemetry.update();
@@ -182,74 +190,4 @@ public class W_WebcamControls_PTZ_v02 extends LinearOpMode {
 
     }    // end OpMode
 
-
-    // Check if this webcam supports virtual pan, tilt and/or zoom.
-    // This method uses a crude technique of sending the webcam a changed value,
-    // then retrieving that value and comparing to the original.
-    // Also checks for min and max values being the same number.
-
-    private void checkPtzSupport() {
-
-        int savedPan = curPan;
-        curPanTilt.pan = curPan + panIncrement;
-        myPtzControl.setPanTilt(curPanTilt);        // set new value
-        curPanTilt = myPtzControl.getPanTilt();     // get actual value
-        isPanSupported = (curPanTilt.pan != savedPan);   // true if Pan actually changed
-        curPanTilt.pan = savedPan;     // revert to original
-
-        int savedTilt = curTilt;
-        curPanTilt.tilt = curTilt + tiltIncrement;
-        myPtzControl.setPanTilt(curPanTilt);        // set new value
-        curPanTilt = myPtzControl.getPanTilt();     // get actual value
-        isTiltSupported = (curPanTilt.tilt != savedTilt);   // true if Tilt actually changed
-        curPanTilt.tilt = savedTilt;     // revert to original
-
-        int savedZoom = curZoom;
-        myPtzControl.setZoom(curZoom + zoomIncrement);  // set new value
-        curZoom = myPtzControl.getZoom();               // get actual value
-        isZoomSupported = (curZoom != savedZoom);   // true if Zoom actually changed
-        curZoom = savedZoom;     // revert to original
-
-        if (isPanSupported) {
-            isPanRangeProvided = (maxPan - minPan) != 0;    // false if no range
-        }
-        
-        if (isTiltSupported) {
-            isTiltRangeProvided = (maxTilt - minTilt) != 0; // false if no range
-        }
-
-        if (isZoomSupported) {
-            isZoomRangeProvided = (maxZoom - minZoom) != 0; // false if no range
-        }
-        
-
-    }  // end method checkPtzSupport()
-
-
-    // Ensure inputs are within webcam limits, if provided.
-    private void checkPtzLimits() {
-        
-        if (isPanSupported && isPanRangeProvided) {
-            curPan = Math.max(curPan, minPan);
-            curPan = Math.min(curPan, maxPan);
-        } else {
-            telemetry.addLine("min & max Pan not available on this webcam");
-        }
-
-        if (isTiltSupported && isTiltRangeProvided) {
-            curTilt = Math.max(curTilt, minTilt);
-            curTilt = Math.min(curTilt, maxTilt);
-        } else {
-            telemetry.addLine("min & max Tilt not available on this webcam");
-        }
-
-        if (isZoomSupported && isZoomRangeProvided) {
-            curZoom = Math.max(curZoom, minZoom);
-            curZoom = Math.min(curZoom, maxZoom);
-        } else {
-            telemetry.addLine("min & max Zoom not available on this webcam");
-        }
-
-    }   // end method checkPtzLimits()
-
-}   // end OpMode class
+}   // end class

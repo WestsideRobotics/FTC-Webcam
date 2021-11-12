@@ -7,6 +7,7 @@ Add your own Vuforia key, where shown below.
 
 Questions, comments and corrections to westsiderobotics@verizon.net
 
+from v06 11/10/21
 */
 
 package org.firstinspires.ftc.teamcode;
