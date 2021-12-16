@@ -1,0 +1,989 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+<variables>
+<variable id="ZHu7]h(iKQ-7Q9eq/q3X">i</variable>
+<variable id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</variable>
+<variable id="57|fv-nCjn39DCh2xJn,">webcamMinExposure</variable>
+<variable id="K/p-+`1wC{qcrLz,/]A5">webcamExposureIncrement</variable>
+<variable id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</variable>
+<variable id="PVDs_e}$UK~6rQG-Gyei">webcamMaxExposure</variable>
+<variable id="AuXSUabE]l~eT%LR+kiw">webcamGainIncrement</variable>
+<variable id="vP~n9zf$lW%hYD/C.j_-">recognition</variable>
+<variable id="dI;;!)Wfj3od4Z0guZE)">webcamMinGain</variable>
+<variable id="Hq)O-t.(XRY*O`r?ve.R">webcamMaxGain</variable>
+<variable id="C-j=_t;@/fsV)+=e~^La">recognitions</variable>
+<variable id="A7n%5a@8jC6}[rgS1GS8">index</variable>
+</variables>
+<block type="procedures_defnoreturn" id="WtpyD@tEu+EoY=P9iY,D" deletable="false" editable="false" x="60" y="12">
+<field name="NAME">runOpMode</field>
+<comment pinned="false" h="32" w="532">This function is executed when this Op Mode is selected from the Driver Station.</comment>
+<statement name="STACK">
+<block type="comment" id="Lc#BFtj*NTB48YL;eBl.">
+<field name="COMMENT">Sample TFOD OpMode with gamepad control of </field>
+<next>
+<block type="comment" id="7W0DOc)jxuKM{=`^m:/=">
+<field name="COMMENT">webcam Exposure and Gain.</field>
+<next>
+<block type="comment" id="#ul#WaXLbg~hUii+7AB_">
+<field name="COMMENT">Initialize Vuforia.</field>
+<next>
+<block type="vuforiaCurrentGame_initialize_withWebcam_2" id="6Xzo0d*2b_I.B:]B4+5q">
+<value name="CAMERA_NAME">
+<shadow type="navigation_webcamName" id="Uztu;2eL:)g_#d6}G98K">
+<field name="WEBCAM_NAME">Webcam 1</field>
+</shadow>
+</value>
+<value name="WEBCAM_CALIBRATION_FILE">
+<shadow type="text" id="znyjVw;:]}rr$Dq}XK!M">
+<field name="TEXT"/>
+</shadow>
+</value>
+<value name="USE_EXTENDED_TRACKING">
+<shadow type="logic_boolean" id="_XSP5JKC^8OOw%V[(HR=">
+<field name="BOOL">FALSE</field>
+</shadow>
+</value>
+<value name="ENABLE_CAMERA_MONITORING">
+<shadow type="logic_boolean" id="y/~?GcC]T),;cIU(d`Cc">
+<field name="BOOL">FALSE</field>
+</shadow>
+</value>
+<value name="CAMERA_MONITOR_FEEDBACK">
+<shadow type="navigation_typedEnum_cameraMonitorFeedback" id="TG%:#^SAd7#]OFj[V9K?">
+<field name="CAMERA_MONITOR_FEEDBACK">NONE</field>
+</shadow>
+</value>
+<value name="DX">
+<shadow type="math_number" id="~PyI_z2IlCq!Uv~b9^=v">
+<field name="NUM">0</field>
+</shadow>
+</value>
+<value name="DY">
+<shadow type="math_number" id="CWCmb0p(S96VKi%Kk(3W">
+<field name="NUM">0</field>
+</shadow>
+</value>
+<value name="DZ">
+<shadow type="math_number" id="5WhUGHWwt[OKb:2pH+~:">
+<field name="NUM">0</field>
+</shadow>
+</value>
+<value name="AXES_ORDER">
+<shadow type="navigation_typedEnum_axesOrder" id="K8jWG:)SaZ?-YT@w(WSz">
+<field name="AXES_ORDER">XZY</field>
+</shadow>
+</value>
+<value name="FIRST_ANGLE">
+<shadow type="math_number" id="!C$T}|^{.b[TPj=vdHo$">
+<field name="NUM">90</field>
+</shadow>
+</value>
+<value name="SECOND_ANGLE">
+<shadow type="math_number" id="=a{Eypfq::uaptXMi6Jq">
+<field name="NUM">90</field>
+</shadow>
+</value>
+<value name="THIRD_ANGLE">
+<shadow type="math_number" id=":|I95FQpD}bI]ECP-w/,">
+<field name="NUM">0</field>
+</shadow>
+</value>
+<value name="USE_COMPETITION_FIELD_TARGET_LOCATIONS">
+<shadow type="logic_boolean" id="Ul5tBGCna_g*4C]X{s-w">
+<field name="BOOL">TRUE</field>
+</shadow>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="/BK#x[KlxY4gilq*[OH{">
+<mutation name="Initialize Webcam Controls"/>
+<next>
+<block type="tfod_useDefaultModel" id="#@q|IU6]pUTbQ$$n,*a#">
+<next>
+<block type="comment" id="{f-nucs}ixJh2%x:J{bE">
+<field name="COMMENT">Set min confidence threshold to 0.7</field>
+<next>
+<block type="tfod_initialize" id="S?6y8$gBQja5ehCJI6Pi">
+<value name="MINIMUM_CONFIDENCE">
+<shadow type="math_number" id="iXlEJA=*Aq^$z~;?.MCb">
+<field name="NUM">0.7</field>
+</shadow>
+</value>
+<value name="USE_OBJECT_TRACKER">
+<shadow type="logic_boolean" id="U2-YX?NyBMWtwqm(aPh0">
+<field name="BOOL">TRUE</field>
+</shadow>
+</value>
+<value name="ENABLE_CAMERA_MONITORING">
+<shadow type="logic_boolean" id="^IoQ1ZVTCGdA3E5UYJTf">
+<field name="BOOL">TRUE</field>
+</shadow>
+</value>
+<next>
+<block type="comment" id="6]yP0{L.V#v3^DJf|2r=">
+<field name="COMMENT">Initialize TFOD before waitForStart.</field>
+<next>
+<block type="tfod_activate" id="/B7!WNQ].FmwKj=}jsb|">
+<comment pinned="false" h="121" w="220">Activate TFOD here so the object detection labels are visible in the Camera Stream preview window on the Driver Station.</comment>
+<next>
+<block type="comment" id=")fKii]4w!FY{pg5CmS{x">
+<field name="COMMENT">Enable following block to zoom in on target.</field>
+<next>
+<block type="tfod_setZoom" id="aB1GwzHR*MIIKAnQObG!">
+<value name="MAGNIFICATION">
+<shadow type="math_number" id="$|tmDEP2DSJ6saa+-BMd">
+<field name="NUM">1</field>
+</shadow>
+</value>
+<value name="ASPECT_RATIO">
+<block type="math_arithmetic" id="(u]Z~xR.UJ[]:XrF7)-i">
+<field name="OP">DIVIDE</field>
+<value name="A">
+<shadow type="math_number" id="mYh$IgooC{KNzBhqm.$T">
+<field name="NUM">16</field>
+</shadow>
+</value>
+<value name="B">
+<shadow type="math_number" id="jLY!cjK}`7a6T:-$]=:I">
+<field name="NUM">9</field>
+</shadow>
+</value>
+</block>
+</value>
+<next>
+<block type="telemetry_addTextData_All" id="s_:#ax|XU($5-SgMk^r~">
+<value name="KEY">
+<shadow type="text" id="Ap*A_$!|_PNTn{jMi}%c">
+<field name="TEXT">DS preview on/off</field>
+</shadow>
+</value>
+<value name="TEXT">
+<shadow type="text" id="rdN3#0#{IaatvWp;6n+g">
+<field name="TEXT">3 dots, Camera Stream</field>
+</shadow>
+</value>
+<next>
+<block type="telemetry_addTextData_All" id="/Zm[n8^)(`(S}Ab9j!;|">
+<value name="KEY">
+<shadow type="text" id="E)4aB(Zb2,Da/0v0AiN=">
+<field name="TEXT">&gt;</field>
+</shadow>
+</value>
+<value name="TEXT">
+<shadow type="text" id="^u5_oh+s(.Vs1Kk;$yw9">
+<field name="TEXT">Press Play to start</field>
+</shadow>
+</value>
+<next>
+<block type="telemetry_update" id="CcM7+$syN,5p}u1NCi8q">
+<next>
+<block type="comment" id="ucY]w(tl5$!{2RX}=X;C">
+<field name="COMMENT">Wait for start command from Driver Station.</field>
+<next>
+<block type="linearOpMode_waitForStart" id=":`$wN_ci`O;o6P0~.(+g">
+<next>
+<block type="controls_if" id="}Q?5mbxSO8Di;i!__6[y">
+<value name="IF0">
+<block type="linearOpMode_opModeIsActive" id=")o%YFX/#9kvv^sgXr4~5"/>
+</value>
+<statement name="DO0">
+<block type="comment" id="(rU-p_T_/B|vExcs}liL">
+<field name="COMMENT">Put run blocks here.</field>
+<next>
+<block type="controls_whileUntil" id="^0Kagy/e+Ea{rbZPv2G6">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="e)cr{!2VIET83s,JWC.="/>
+</value>
+<statement name="DO">
+<block type="comment" id="Jh/;L$n@JuX8AQJDFCul">
+<field name="COMMENT">Put loop blocks here.</field>
+<next>
+<block type="procedures_callnoreturn" id="OWUd1^udaG8)J$=T}Z1x">
+<mutation name="Gamepad Controls"/>
+<next>
+<block type="variables_set" id="G3vz:RD7CO6.%Sw)ZFK_">
+<field name="VAR" id="C-j=_t;@/fsV)+=e~^La">recognitions</field>
+<comment pinned="false" h="66" w="177">Get a list of recognitions from TFOD.</comment>
+<value name="VALUE">
+<block type="tfod_getRecognitions" id="%d}Eg`]Tl,|WPcgQ%t)3"/>
+</value>
+<next>
+<block type="controls_if" id="ca@sg0@jzk|H6L@P2e^L">
+<mutation else="1"/>
+<comment pinned="false" h="102" w="202">If list is empty, inform the user. Otherwise, go through list and display info for each recognition.</comment>
+<value name="IF0">
+<block type="logic_compare" id="=%o)vlFkvhu-xL,X/eo$">
+<field name="OP">EQ</field>
+<value name="A">
+<block type="lists_length" id="t!{SnHLGoo~PaP6awyK.">
+<value name="VALUE">
+<block type="variables_get" id="ZNj(tw{-HQNlj-7{iU](">
+<field name="VAR" id="C-j=_t;@/fsV)+=e~^La">recognitions</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<block type="math_number" id="4XseN,4~X=LIU%~64FvC">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="telemetry_addTextData_All" id="GlID$m:#pV1$]_9Xwr2R">
+<value name="KEY">
+<shadow type="text" id="M^km_K-P,B!{$$O:vELn">
+<field name="TEXT">TFOD</field>
+</shadow>
+</value>
+<value name="TEXT">
+<shadow type="text" id="p48vyO#GC!;Z;9]M-St7">
+<field name="TEXT">No items detected.</field>
+</shadow>
+</value>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="variables_set" id="-$r0NK]~Nh7SKIq7SfSd">
+<field name="VAR" id="A7n%5a@8jC6}[rgS1GS8">index</field>
+<value name="VALUE">
+<block type="math_number" id="P1f]4HSIe|E0?Cj7x0B[">
+<field name="NUM">0</field>
+</block>
+</value>
+<next>
+<block type="controls_forEach" id="|@Y$y8D~],V(MRQ+Cyv{">
+<field name="VAR" id="vP~n9zf$lW%hYD/C.j_-">recognition</field>
+<comment pinned="false" h="81" w="199">Iterate through list and call a function to display info for each recognized object.</comment>
+<value name="LIST">
+<block type="variables_get" id="W,d1s!eFWeDT0X}~eq,n">
+<field name="VAR" id="C-j=_t;@/fsV)+=e~^La">recognitions</field>
+</block>
+</value>
+<statement name="DO">
+<block type="comment" id="U@Dkpel-LMa.00jJsqA-">
+<field name="COMMENT">Display info.</field>
+<next>
+<block type="procedures_callnoreturn" id="}Ed*Qv]2hqyM9x`y/=fq">
+<mutation name="displayInfo">
+<arg name="i"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="1ynw+j_dMgW{E_t3}D|E">
+<field name="VAR" id="A7n%5a@8jC6}[rgS1GS8">index</field>
+</block>
+</value>
+<next>
+<block type="comment" id=",1(:%n^0JKFq_SFwTg^H">
+<field name="COMMENT">Increment index.</field>
+<next>
+<block type="variables_set" id="}(~W?+spH%5lnSN8((?=">
+<field name="VAR" id="A7n%5a@8jC6}[rgS1GS8">index</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="?6nQyMGz}aU1fC+utj9g">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="A(cWTP6GX-7F%pan2;S:">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="_Qa|p#!QpQ?:hR:4$)Ki">
+<field name="VAR" id="A7n%5a@8jC6}[rgS1GS8">index</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="cZn5/PfoHlpMu|xN+~eL">
+<field name="NUM">1</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="telemetry_update" id="exvivmft-pX$n!1,8Ea$"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="comment" id="x3Da[L*)xMh=3e7zy7*{">
+<field name="COMMENT">Deactivate TFOD.</field>
+<next>
+<block type="tfod_deactivate" id=")#LnjM-c3n?~scY$Z!@Y"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_defnoreturn" id="9O,A,Ysx^d.I:zy:GCG4" x="1003" y="13">
+<field name="NAME">Initialize Webcam Controls</field>
+<comment pinned="false" h="80" w="160">Initialize variables used for webcam control.</comment>
+<statement name="STACK">
+<block type="misc_callJava_noReturn" id="=h@BjTzo4.HZWyX)d|0f">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getVuforia(org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer) void" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="1" returnType="void" color="289" heading="call Java method" comment="Place this utility myBlock getVuforia() in the Blocks OpMode *after* the Vuforia initialize Block.  Connect the getVuforiaLocalizer Block to the input socket of this myBlock.  This myBlock displays the webcam's minimum, maximum and current values of Exposure and Gain." tooltip="Enable Vuforia for other myBlocks." accessMethod="callJava" convertReturnValue="" argLabel0="vuforiaLocalizer" argType0="org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer" argAuto0=""/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getVuforia</field>
+<comment pinned="false" h="223.66668701171875" w="267.333251953125">Place this utility myBlock getVuforia() in the Blocks OpMode *after* the Vuforia initialize Block.  Connect the getVuforiaLocalizer Block to the input socket of this myBlock.
+
+This myBlock displays the webcam's minimum, maximum and current values of Exposure and Gain.</comment>
+<value name="ARG0">
+<block type="vuforiaCurrentGame_getVuforiaLocalizer" id="8ux,]+wtR:A3@vD5zh!y"/>
+</value>
+<next>
+<block type="variables_set" id="Lq:L=~3i38mJ~v7ile!A">
+<field name="VAR" id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</field>
+<value name="VALUE">
+<block type="misc_callJava_return" id="8)IcCsyyrqxfX4GWD*aA">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getExposure() long" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="long" color="289" heading="call Java method" comment="Get the webcam's current exposure in milliseconds." tooltip="Get the current exposure in milliseconds." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getExposure</field>
+<comment pinned="false" h="80" w="160">Get the webcam's current exposure in milliseconds.</comment>
+</block>
+</value>
+<next>
+<block type="variables_set" id="^GO%$Mk$2%m#ra}:$3mh">
+<field name="VAR" id="57|fv-nCjn39DCh2xJn,">webcamMinExposure</field>
+<value name="VALUE">
+<block type="misc_callJava_return" id="OQ|LZy`SNt$lNmF4Dr;f">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getMinExposure() long" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="long" color="289" heading="call Java method" comment="Get the webcam's minimum exposure in milliseconds." tooltip="Get the minimum exposure in milliseconds." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getMinExposure</field>
+<comment pinned="false" h="80" w="160">Get the webcam's minimum exposure in milliseconds.</comment>
+</block>
+</value>
+<next>
+<block type="variables_set" id="kdirCRgx%R@E%U05@rA|">
+<field name="VAR" id="PVDs_e}$UK~6rQG-Gyei">webcamMaxExposure</field>
+<value name="VALUE">
+<block type="misc_callJava_return" id="]f=c[~n#W)vz/MF31T,t">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getMaxExposure() long" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="long" color="289" heading="call Java method" comment="Get the webcam's maximum exposure in milliseconds." tooltip="Get the maximum exposure in milliseconds." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getMaxExposure</field>
+<comment pinned="false" h="80" w="160">Get the webcam's maximum exposure in milliseconds.</comment>
+</block>
+</value>
+<next>
+<block type="variables_set" id="l:SFA5q`Dqn9G8@*}{.(">
+<field name="VAR" id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</field>
+<value name="VALUE">
+<block type="misc_callJava_return" id="{{R+RxH#]W{Ml=c)5V1+">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getGain() int" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="int" color="289" heading="call Java method" comment="Get the webcam's current gain." tooltip="Get the current gain." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getGain</field>
+<comment pinned="false" h="80" w="160">Get the webcam's current gain.</comment>
+</block>
+</value>
+<next>
+<block type="variables_set" id=").D{YO7g(C_(bOvnJI_[">
+<field name="VAR" id="dI;;!)Wfj3od4Z0guZE)">webcamMinGain</field>
+<value name="VALUE">
+<block type="misc_callJava_return" id="CMhS*F~l}`U(_x~@D]=D">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getMinGain() int" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="int" color="289" heading="call Java method" comment="Get the webcam's minimum gain." tooltip="Get the minimum gain." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getMinGain</field>
+<comment pinned="false" h="80" w="160">Get the webcam's minimum gain.</comment>
+</block>
+</value>
+<next>
+<block type="variables_set" id="VhfcT=NN4?MGw-e{W1Go">
+<field name="VAR" id="Hq)O-t.(XRY*O`r?ve.R">webcamMaxGain</field>
+<value name="VALUE">
+<block type="misc_callJava_return" id="qBv@-39_s/4GanxtlO2.">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getMaxGain() int" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="int" color="289" heading="call Java method" comment="Get the webcam's maximum gain." tooltip="Get the maximum gain." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getMaxGain</field>
+<comment pinned="false" h="80" w="160">Get the webcam's maximum gain.</comment>
+</block>
+</value>
+<next>
+<block type="variables_set" id="oY-8-dPmxJg+.#.9^ST}">
+<field name="VAR" id="K/p-+`1wC{qcrLz,/]A5">webcamExposureIncrement</field>
+<value name="VALUE">
+<block type="math_number" id="pDe/V;.ir)URJr:x~=:#">
+<field name="NUM">1</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="5Hj9*C7M{mvo[-VZe?{%">
+<field name="VAR" id="AuXSUabE]l~eT%LR+kiw">webcamGainIncrement</field>
+<value name="VALUE">
+<block type="math_number" id="_7rx!w0V[VIC0}elb8%t">
+<field name="NUM">1</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_defnoreturn" id="/-=$UhS).?Ft8{6@$#I~" x="1004" y="539">
+<field name="NAME">Gamepad Controls</field>
+<comment pinned="false" h="390.1851806640625" w="322.9630126953125">Use the gamepad to directly adjust webcam Exposure and Gain values, while observing the RC phone preview and/or the DS telemetry data.  Dpad up/down adjusts Exposure.  Buttons Y and A adjust Gain.
+
+For Control Hub, place this Function in a loop during INIT, to observe the Camera Stream preview.
+
+Note: after an initial recognition, TFOD's tracking feature can typically maintain that recognition's confidence level, even with subsequent changes to exposure and gain settings.</comment>
+<statement name="STACK">
+<block type="controls_if" id="3w/wEWgdLK|lm!X48~Te">
+<mutation elseif="1"/>
+<value name="IF0">
+<block type="gamepad_getProperty_Boolean" id=":Z#f}ZBY+3D@Wc7dUBmt">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">DpadUp</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO0">
+<block type="math_change" id="+`g!RBI3pd|{q4N#!I.O">
+<field name="VAR" id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</field>
+<value name="DELTA">
+<shadow type="math_number" id="u]j)fHzrNa0``1,@^+Yl">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="+2Z7iSMT@$AIqcR[Cfcf">
+<field name="VAR" id="K/p-+`1wC{qcrLz,/]A5">webcamExposureIncrement</field>
+</block>
+</value>
+</block>
+</statement>
+<value name="IF1">
+<block type="gamepad_getProperty_Boolean" id="PHRC|vL]m6AJIx({CjtP">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">DpadDown</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO1">
+<block type="math_change" id=")+mBNrC,-SyiUK,R]H/m">
+<field name="VAR" id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</field>
+<value name="DELTA">
+<shadow type="math_number" id="/IQ/Rq!~GP9MB({R1a};">
+<field name="NUM">-1</field>
+</shadow>
+<block type="math_single" id="ix?${OI*X3UKKV5;9f(/">
+<field name="OP">NEG</field>
+<value name="NUM">
+<shadow type="math_number" id="^x`,Im%,JC1cueHh9Nev">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="xLGm^]ld0Oh/|CTM$c1f">
+<field name="VAR" id="K/p-+`1wC{qcrLz,/]A5">webcamExposureIncrement</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</statement>
+<next>
+<block type="controls_if" id="*;jXZ]L~$jb*=TCAA9[#">
+<mutation elseif="1"/>
+<value name="IF0">
+<block type="gamepad_getProperty_Boolean" id="GKoOtd#94#KmR@pfCDbW">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">Y</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO0">
+<block type="math_change" id="I79AWzx2*Q+.jxGNBUZC">
+<field name="VAR" id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</field>
+<value name="DELTA">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="4H-%(%oYEPd?eg+DR.52">
+<field name="VAR" id="AuXSUabE]l~eT%LR+kiw">webcamGainIncrement</field>
+</block>
+</value>
+</block>
+</statement>
+<value name="IF1">
+<block type="gamepad_getProperty_Boolean" id="gLc[5]~[b!Kw)k,d8LAS">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">A</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+</value>
+<statement name="DO1">
+<block type="math_change" id="p)F~,m-9sd`J81,fxB%l">
+<field name="VAR" id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</field>
+<value name="DELTA">
+<shadow type="math_number">
+<field name="NUM">-1</field>
+</shadow>
+<block type="math_single" id="Mo=eKGwgDxNdls6r_s-M">
+<field name="OP">NEG</field>
+<value name="NUM">
+<shadow type="math_number">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="Pt:bPhQ{I4U=iBVoX4},">
+<field name="VAR" id="AuXSUabE]l~eT%LR+kiw">webcamGainIncrement</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</statement>
+<next>
+<block type="variables_set" id="PJ#GPc[8WZsU/p+waIng">
+<field name="VAR" id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</field>
+<value name="VALUE">
+<block type="math_constrain" id="lPXwCtvCrqrz:]TvT45$">
+<value name="VALUE">
+<shadow type="math_number" id="JZN3:p)ELaW?EN%rjtSr">
+<field name="NUM">50</field>
+</shadow>
+<block type="variables_get" id="|+WzeE+:z*5+PKz{aeCx">
+<field name="VAR" id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</field>
+</block>
+</value>
+<value name="LOW">
+<shadow type="math_number" id="5oxkjZ**8jU0JMoU~e$B">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="x]nt@;JU2S,5OV33Y^ZT">
+<field name="VAR" id="57|fv-nCjn39DCh2xJn,">webcamMinExposure</field>
+</block>
+</value>
+<value name="HIGH">
+<shadow type="math_number" id="kkw_ntlT@deu?B0jXZrN">
+<field name="NUM">100</field>
+</shadow>
+<block type="variables_get" id="_~.5h=!oY3_cy]kA=t!*">
+<field name="VAR" id="PVDs_e}$UK~6rQG-Gyei">webcamMaxExposure</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="variables_set" id="92gRR]X%D[O1`hx-@XSF">
+<field name="VAR" id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</field>
+<value name="VALUE">
+<block type="math_constrain" id="v8UIs#*?`l9FD/fCG[RX">
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">50</field>
+</shadow>
+<block type="variables_get" id="?,vA{E~r=C?io%:WE^Rc">
+<field name="VAR" id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</field>
+</block>
+</value>
+<value name="LOW">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="t}Q.qy*|9^^zw]KOqcN]">
+<field name="VAR" id="dI;;!)Wfj3od4Z0guZE)">webcamMinGain</field>
+</block>
+</value>
+<value name="HIGH">
+<shadow type="math_number">
+<field name="NUM">100</field>
+</shadow>
+<block type="variables_get" id="Z_YDlaAzm%@r=[S97qX(">
+<field name="VAR" id="Hq)O-t.(XRY*O`r?ve.R">webcamMaxGain</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="misc_callJava_noReturn" id="GxBgz1v[@C.a?.1!kX6,">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 setExposure(long) void" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="1" returnType="void" color="289" heading="call Java method" comment="Set the webcam's exposure in milliseconds." tooltip="Set the exposure in milliseconds." accessMethod="callJava" convertReturnValue="" argLabel0="Exposure (milliseconds)" argType0="long" argAuto0=""/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">setExposure</field>
+<comment pinned="false" h="80" w="160">Set the webcam's exposure in milliseconds.</comment>
+<value name="ARG0">
+<shadow type="math_number" id="h,ax2G{o8*/k4)ih*Lt:">
+<field name="NUM">204</field>
+</shadow>
+<block type="variables_get" id="zen8,v-`]O,FKsrHm~n!">
+<field name="VAR" id="o2sf)BbT%BISNQm8Z1:n">webcamExposure</field>
+</block>
+</value>
+<next>
+<block type="misc_callJava_noReturn" id="OvY=XYpe)_)FaPtTpFzl">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 setGain(int) void" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="1" returnType="void" color="289" heading="call Java method" comment="Set the webcam's gain." tooltip="Set the gain." accessMethod="callJava" convertReturnValue="" argLabel0="Gain" argType0="int" argAuto0=""/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">setGain</field>
+<comment pinned="false" h="80" w="160">Set the webcam's gain.</comment>
+<value name="ARG0">
+<shadow type="math_number" id="kj2tq;r-U#`gRRWfM4@t">
+<field name="NUM">255</field>
+</shadow>
+<block type="variables_get" id="8!/zv#6SPcM-|ep(O]}*">
+<field name="VAR" id="ix(UzMc5I;1f{)Vmt`KK">webcamGain</field>
+</block>
+</value>
+<next>
+<block type="telemetry_addTextData_All" id="V`i`n$oT{ee+HWF?8cb{">
+<value name="KEY">
+<shadow type="text" id="DeT9]R?3q]2JDgdN!.`t">
+<field name="TEXT">Webcam controls</field>
+</shadow>
+</value>
+<value name="TEXT">
+<shadow type="text" id="WFsmC)EuuVTwrkHD^ZD(">
+<field name="TEXT">Exposure: Dpad up/dn  Gain: Y/A</field>
+</shadow>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="-Uz6~O!B%)qB-;MBzpA;">
+<value name="KEY">
+<shadow type="text" id=";HGd3R0zI;[Q,$2/+.@m">
+<field name="TEXT">current Exposure</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="xDmQm`(,O|9Wv0JRNiT~">
+<field name="NUM">123</field>
+</shadow>
+<block type="misc_callJava_return" id="TN3?XrI5S-Bcc{*z71kG">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getExposure() long" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="long" color="289" heading="call Java method" comment="Get the webcam's current exposure in milliseconds." tooltip="Get the current exposure in milliseconds." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getExposure</field>
+<comment pinned="false" h="80" w="160">Get the webcam's current exposure in milliseconds.</comment>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="GnxLaH[FyYVKdLR?P=u{">
+<value name="KEY">
+<shadow type="text" id="uZRZk_ngnq[A#-9ut}{;">
+<field name="TEXT">current Gain</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="g*0sdxO+PqB~RnYENZAP">
+<field name="NUM">123</field>
+</shadow>
+<block type="misc_callJava_return" id="%jvUm?)SZ%l|OUMN,P=1">
+<mutation createDropdownFunctionName="" methodLookupString="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04 getGain() int" fullClassName="org.firstinspires.ftc.teamcode.W_WebcamControlsMyBlocks_v04" simpleName="W_WebcamControlsMyBlocks_v04" parameterCount="0" returnType="int" color="289" heading="call Java method" comment="Get the webcam's current gain." tooltip="Get the current gain." accessMethod="callJava_String" convertReturnValue="Number"/>
+<field name="CLASS_NAME">W_WebcamControlsMyBlocks_v04</field>
+<field name="METHOD_NAME">getGain</field>
+<comment pinned="false" h="80" w="160">Get the webcam's current gain.</comment>
+</block>
+</value>
+<next>
+<block type="telemetry_update" id="BOIwoF+-.C[tYAc;,VrM" disabled="true"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_defnoreturn" id=")21zCFQOO-Q6a!/Wu4LO" x="1015" y="1400">
+<mutation>
+<arg name="i" varid="ZHu7]h(iKQ-7Q9eq/q3X"/>
+</mutation>
+<field name="NAME">displayInfo</field>
+<comment pinned="false" h="80" w="160">Display info (using telemetry) for a recognized object.</comment>
+<statement name="STACK">
+<block type="comment" id="tlc0F80BdB`b([Xp;XEc">
+<field name="COMMENT">Display label info.</field>
+<next>
+<block type="telemetry_addTextData_All" id=";6SFb8haRI5qo45n}iJ8">
+<comment pinned="false" h="80" w="160">Display the label and index number for the recognition.</comment>
+<value name="KEY">
+<shadow type="text" id="_dKJensTqN?qDeXC6vm|">
+<field name="TEXT">key</field>
+</shadow>
+<block type="text_join" id="_f._U;/kb2{Yz0e76KNN">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="text" id="y,9e7qml,YyEJ*rPPJ%p">
+<field name="TEXT">label </field>
+</block>
+</value>
+<value name="ADD1">
+<block type="variables_get" id="PCpqfPlom*4,p~ehCda9">
+<field name="VAR" id="ZHu7]h(iKQ-7Q9eq/q3X">i</field>
+</block>
+</value>
+</block>
+</value>
+<value name="TEXT">
+<shadow type="text" id="#+^2[kj(=_-pPWHzSDN^">
+<field name="TEXT">text</field>
+</shadow>
+<block type="tfodRecognition_getProperty_String" id="d7@$bcm+3wluc1@Wtq|u">
+<field name="PROP">Label</field>
+<value name="TFOD_RECOGNITION">
+<block type="variables_get" id="}u)$1QfMPe1)p,Qs5Ku;">
+<field name="VAR" id="vP~n9zf$lW%hYD/C.j_-">recognition</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="comment" id="_98!oDhsOCBdhLYUP4uf">
+<field name="COMMENT">Display upper corner info.</field>
+<next>
+<block type="telemetry_addTextData_All" id="8nKd8v-zW;`u5BOb+C%9">
+<comment pinned="false" h="100" w="200">Display the location of the top left corner of the detection boundary for the recognition</comment>
+<value name="KEY">
+<shadow type="text" id="_dKJensTqN?qDeXC6vm|">
+<field name="TEXT">key</field>
+</shadow>
+<block type="text_join" id="7Fn(t/Mm3i1ur(2xaI_X">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="text" id="}g`_FiJaZ]3s$^FeZvgx">
+<field name="TEXT">Left, Top </field>
+</block>
+</value>
+<value name="ADD1">
+<block type="variables_get" id="NL:]G/H7.SZ1!=:D3{/C">
+<field name="VAR" id="ZHu7]h(iKQ-7Q9eq/q3X">i</field>
+</block>
+</value>
+</block>
+</value>
+<value name="TEXT">
+<shadow type="text" id="#+^2[kj(=_-pPWHzSDN^">
+<field name="TEXT">text</field>
+</shadow>
+<block type="text_join" id="DT/!lFr4vq[1YesUPQ_T">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="misc_roundDecimal" id="@b+^#[RI!{l)+F_7j38t">
+<value name="NUMBER">
+<shadow type="math_number" id="#vf+kHubT%nId(LfWIaf">
+<field name="NUM">3.14159265</field>
+</shadow>
+<block type="tfodRecognition_getProperty_Number" id="VeL$%e^~N33.uZUiGhUK">
+<field name="PROP">Left</field>
+<value name="TFOD_RECOGNITION">
+<block type="variables_get" id="89kTVFyI498d3Mlqk$Do">
+<field name="VAR" id="vP~n9zf$lW%hYD/C.j_-">recognition</field>
+</block>
+</value>
+</block>
+</value>
+<value name="PRECISION">
+<shadow type="math_number" id="mu!fU%UY;cG+dEX;r*S.">
+<field name="NUM">0</field>
+</shadow>
+</value>
+</block>
+</value>
+<value name="ADD1">
+<block type="text_join" id="q.3D]XGo9g91,_!4]O`-">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="text" id="ZhFl#/Fk+I)t}s)TnQ_?">
+<field name="TEXT">, </field>
+</block>
+</value>
+<value name="ADD1">
+<block type="misc_roundDecimal" id="]A,~JjE/rcT%wN{Jx)Aj">
+<value name="NUMBER">
+<shadow type="math_number" id="OeGys.XSr%1,]E{h;}NJ">
+<field name="NUM">3.14159265</field>
+</shadow>
+<block type="tfodRecognition_getProperty_Number" id="G~K_0Bp1F20i`4CU,PE{">
+<field name="PROP">Top</field>
+<value name="TFOD_RECOGNITION">
+<block type="variables_get" id="M]Nj%yp]N-HH{kA|-PC!">
+<field name="VAR" id="vP~n9zf$lW%hYD/C.j_-">recognition</field>
+</block>
+</value>
+</block>
+</value>
+<value name="PRECISION">
+<shadow type="math_number" id="b#+m|EU#/z@%|j$c/,6c">
+<field name="NUM">0</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="comment" id="~bRVN`9q9$vf6w0BSW@}">
+<field name="COMMENT">Display lower corner info.</field>
+<next>
+<block type="telemetry_addTextData_All" id="Q+UdE@m8P2B.yiwA.w%$">
+<comment pinned="false" h="100" w="200">Display the location of the bottom right corner of the detection boundary for the recognition</comment>
+<value name="KEY">
+<shadow type="text" id="_dKJensTqN?qDeXC6vm|">
+<field name="TEXT">key</field>
+</shadow>
+<block type="text_join" id="zJv0lB`hN,S+t!Xt,0_l">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="text" id="c7F~1],4bXjo0h].?:7C">
+<field name="TEXT">Right, Bottom </field>
+</block>
+</value>
+<value name="ADD1">
+<block type="variables_get" id="/s^!~P|}^wPc#v+J8bg6">
+<field name="VAR" id="ZHu7]h(iKQ-7Q9eq/q3X">i</field>
+</block>
+</value>
+</block>
+</value>
+<value name="TEXT">
+<shadow type="text" id="#+^2[kj(=_-pPWHzSDN^">
+<field name="TEXT">text</field>
+</shadow>
+<block type="text_join" id="o8Gtc?kcbG~`#vx!7ck^">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="misc_roundDecimal" id="+7chsnq8Znz^{z9~Iwg|">
+<value name="NUMBER">
+<shadow type="math_number" id="GY|}YgdQ#cwv(2X*$M`W">
+<field name="NUM">3.14159265</field>
+</shadow>
+<block type="tfodRecognition_getProperty_Number" id="B-6W%AK(jO!ur3t$S!h@">
+<field name="PROP">Right</field>
+<value name="TFOD_RECOGNITION">
+<block type="variables_get" id="I%pBUv`--i6Yr0iXNPT4">
+<field name="VAR" id="vP~n9zf$lW%hYD/C.j_-">recognition</field>
+</block>
+</value>
+</block>
+</value>
+<value name="PRECISION">
+<shadow type="math_number" id="6D.Vj04y;Ulr7cMTImo~">
+<field name="NUM">0</field>
+</shadow>
+</value>
+</block>
+</value>
+<value name="ADD1">
+<block type="text_join" id="%4fe?X`$FHM%a~B4le^)">
+<mutation items="2"/>
+<value name="ADD0">
+<block type="text" id="okN|sYW[pdiqWcyAv-66">
+<field name="TEXT">, </field>
+</block>
+</value>
+<value name="ADD1">
+<block type="misc_roundDecimal" id="118~G8[N$;Izv[Mz6FJB">
+<value name="NUMBER">
+<shadow type="math_number" id="L@82|?|T{,UA=OfsD2;j">
+<field name="NUM">3.14159265</field>
+</shadow>
+<block type="tfodRecognition_getProperty_Number" id="F%|Lo.;yf5Od/%EqOuf)">
+<field name="PROP">Bottom</field>
+<value name="TFOD_RECOGNITION">
+<block type="variables_get" id="TA34*WE*L([F@%Yk_x*4">
+<field name="VAR" id="vP~n9zf$lW%hYD/C.j_-">recognition</field>
+</block>
+</value>
+</block>
+</value>
+<value name="PRECISION">
+<shadow type="math_number" id="-u!13XoX}xo@2r7-1[Yd">
+<field name="NUM">0</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</xml>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Extra>
+<OpModeMeta flavor="TELEOP" group="" autoTransition="" />
+<Enabled value="true" />
+</Extra>
